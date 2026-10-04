@@ -1,0 +1,245 @@
+/* --- Reinicios y Fuentes --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Impact', 'Arial Black', sans-serif; /* Estilo arcade/infantil */
+  background: radial-gradient(circle, #1a0b36 0%, #050114 100%); /* Espacio profundo */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 20px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- Animación de Estrellas de Fondo --- */
+.estrella {
+  position: absolute;
+  font-size: 24px;
+  animation: flotar 4s ease-in-out infinite alternate;
+  z-index: 0;
+}
+.e1 { top: 10%; left: 8%; animation-delay: 0s; }
+.e2 { top: 35%; right: 10%; animation-delay: 1s; }
+.e3 { bottom: 15%; left: 12%; animation-delay: 2s; }
+
+@keyframes flotar {
+  0% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 5px #fff); }
+  100% { transform: translateY(-15px) scale(1.2); filter: drop-shadow(0 0 15px #ff007f); }
+}
+
+/* --- Contenedor Principal --- */
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 480px;
+  z-index: 10;
+}
+
+/* --- Panel Superior de Control (Input + Botón) --- */
+.panel-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Input Ovalado Tecnológico */
+#numero-tabla {
+  width: 80%;
+  padding: 14px;
+  border-radius: 50px;
+  border: 3px solid #00ffff;
+  outline: none;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: #ffffff;
+  background: rgba(25, 10, 55, 0.6);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  font-family: sans-serif;
+  transition: all 0.3s ease;
+}
+
+#numero-tabla:focus {
+  box-shadow: 0 0 25px #00ffff;
+  background: rgba(25, 10, 55, 0.9);
+}
+
+#numero-tabla::placeholder {
+  color: #8aa3d0;
+  font-weight: normal;
+}
+
+/* Botón "PROBAR PODER" */
+.btn-probar {
+  background-color: #ff007f; /* Magenta llamativo */
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  padding: 14px 0;
+  width: 80%;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px #ff007f, inset 0 0 10px rgba(255,255,255,0.5);
+  animation: pulsoNeon 1.5s infinite alternate;
+  transition: transform 0.1s;
+}
+
+.btn-probar:hover {
+  background-color: #ff3399;
+  transform: scale(1.04);
+}
+
+.btn-probar:active {
+  transform: scale(0.96);
+}
+
+@keyframes pulsoNeon {
+  0% { box-shadow: 0 0 15px #ff007f; }
+  100% { box-shadow: 0 0 30px #ff007f, 0 0 10px #00ffff; }
+}
+
+/* --- Mensajes de Texto de Alerta (Éxito o Error) --- */
+.texto-alerta {
+  color: #ffff00; /* Amarillo neón */
+  font-size: 16px;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.6);
+  margin: 5px 0;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+/* --- Contenedor Dinámico del Resultado --- */
+.contenedor-resultado {
+  width: 100%;
+}
+
+/* --- La Tarjeta de la Tabla Generada (`<section>`) --- */
+.tarjeta {
+  background: rgba(25, 10, 55, 0.85); /* Cristal oscuro */
+  border: 4px solid #00ffff; /* Marco cian brillante */
+  border-radius: 24px;
+  padding: 22px;
+  width: 100%;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+  text-align: center;
+  animation: aparecerTabla 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes aparecerTabla {
+  0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  color: #00ffff;
+  font-size: 26px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #00ffff;
+  margin-bottom: 20px;
+}
+
+/* --- Estructura Modular de Filas y Celdas --- */
+.tabla-div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Separación divertida tipo bloques */
+}
+
+.fila {
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 19px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.fila:not(.encabezado):hover {
+  background-color: rgba(0, 255, 255, 0.15);
+  transform: scale(1.02);
+  color: #ffff00; /* Pone los números en amarillo brillante al pasar el mouse */
+  text-shadow: 0 0 8px #ffff00;
+}
+
+/* Fila de Encabezado */
+.fila.encabezado {
+  background-color: #7000ff; /* Púrpura robótico */
+  border-bottom: 3px solid #ffffff;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 25px;
+}
+
+.celda {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* --- Ajustes Responsivos para Celulares --- */
+@media (max-width: 480px) {
+  body {
+    padding: 30px 12px;
+  }
+
+  #numero-tabla, .btn-probar {
+    width: 100%; /* Ocupan todo el ancho disponible en pantallas pequeñas */
+  }
+
+  .tarjeta {
+    padding: 15px;
+  }
+
+  .tarjeta h2 {
+    font-size: 22px;
+  }
+
+  .fila {
+    font-size: 17px;
+    padding: 10px;
+  }
+}
+
+/* --- Estilo para el Texto de Bienvenida --- */
+.titulo-bienvenida {
+  color: #00ffdd; /* Color cian neón */
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  line-height: 1.4;
+  animation: parpadeoSuave 2s infinite alternate;
+}
+
+@keyframes parpadeoSuave {
+  0% { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 255, 255, 0.4); }
+  100% { opacity: 1; text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 5px #ffffff; }
+}
+
+/* Ajuste pequeño para celulares */
+@media (max-width: 480px) {
+  .titulo-bienvenida {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+}
+
